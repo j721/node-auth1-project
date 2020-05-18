@@ -4,7 +4,10 @@ const router = require('express').Router();
 //import helper functions
 const User = require("./users-model");
 
-router.get('/', (req,res)=>{
+//import middleware
+const restricted = require('../auth/restricted-middleware.js');
+
+router.get('/', restricted, (req,res)=>{
     Users.find()
     .then(users=>{
         res.json(users)
