@@ -5,6 +5,8 @@ const router = require("express").Router();
 const Users = require("../users/users-model.js");
 const { isValid } = require("../users/users-service.js");
 
+
+//POST /api/auth/register
 router.post("/register", (req, res) => {
   const credentials = req.body;
 
@@ -13,14 +15,12 @@ router.post("/register", (req, res) => {
 
     // hash the password
     const hash = bcryptjs.hashSync(credentials.password, rounds);
-
     credentials.password = hash;
 
     // save the user to the database
     Users.add(credentials)
       .then(user => {
         req.session.loggedIn === true;
-
         res.status(201).json({ data: user });
       })
       .catch(error => {
@@ -33,6 +33,8 @@ router.post("/register", (req, res) => {
   }
 });
 
+
+//POST /api/auth/login
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
 
@@ -60,6 +62,8 @@ router.post("/login", (req, res) => {
   }
 });
 
+
+//GET /api/auth/logout
 router.get("/logout", (req, res) => {
   if (req.session) {
     req.session.destroy(err => {

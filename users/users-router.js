@@ -1,11 +1,12 @@
 // //set up router with express
 // const router = require('express').Router();
 
-// //import helper functions
+// // //import helper functions
 // const User = require("./users-model");
 
-// //import middleware
-// const restricted = require('../auth/restricted-middleware.js');
+// // //import middleware
+
+// const { restricted} = require("../users/users-service.js");
 
 // router.get('/', restricted, (req,res)=>{
 //     Users.find()
